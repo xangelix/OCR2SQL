@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using Timer = System.Timers.Timer;
+using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace OCR_to_SQL
 {
@@ -50,6 +52,25 @@ namespace OCR_to_SQL
                 {
                     MessageBox.Show("Error running Tesseract-OCR");
                 }
+                string[] document = new string[files.Length];
+                string[] pattern = new string[files.Length];
+                string[] body = new string[files.Length];
+                string[] root = new string[files.Length];
+                StreamReader reader = new StreamReader(String.Format("{0}//output{1}.hocr", ex1, i + 1));
+                document[i] = reader.ReadToEnd();
+                pattern[i] = "<body>(.*)</body>";
+
+                Match match = Regex.Match(document[i], pattern[i], RegexOptions.Singleline);
+                body[i] = match.Groups[1].Value;
+                root[i] = string.Format("<root>{0}</root>", body);
+                XmlDocument xm = new XmlDocument();
+                xm.LoadXml(root[i]);
+
+                MessageBox.Show(document[i]);
+                MessageBox.Show(pattern[i]);
+                MessageBox.Show(body[i]);
+                MessageBox.Show(root[i]);
+
             }
         }
 
@@ -106,6 +127,11 @@ namespace OCR_to_SQL
         {
             t.Stop();
             MessageBox.Show("Tesseract-OCR installation could not be found!\nPlease manually enter the path to tesseract.exe!");
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
