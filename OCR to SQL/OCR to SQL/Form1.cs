@@ -89,11 +89,6 @@ namespace OCR_to_SQL
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             OpenFileDialog fbd2 = new OpenFileDialog();
@@ -101,11 +96,6 @@ namespace OCR_to_SQL
             {
                 textBox2.Text = fbd2.FileName;
             }
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -127,11 +117,6 @@ namespace OCR_to_SQL
         {
             t.Stop();
             MessageBox.Show("Tesseract-OCR installation could not be found!\nPlease manually enter the path to tesseract.exe!");
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
