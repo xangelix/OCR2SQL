@@ -12,6 +12,7 @@ using System.IO;
 using Timer = System.Timers.Timer;
 using System.Xml;
 using System.Text.RegularExpressions;
+using Tesseract;
 
 namespace OCR_to_SQL
 {
@@ -23,6 +24,15 @@ namespace OCR_to_SQL
         public Form1()
         {
             InitializeComponent();
+        }
+
+        class Person
+        {
+            public string Name { get; set; }
+            public string Street { get; set; }
+            public string City { get; set; }
+            public string State { get; set; }
+            public int Zip { get; set; }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,9 +47,12 @@ namespace OCR_to_SQL
             
             string[] files = Directory.GetFiles(textBox1.Text);
             //textBox1.Text = files[0];
+            List<string> outputs = new List<string>();
+
 
             for (int i = 0; i < files.Length; i++)
             {
+                /*
                 startInfo.Arguments = String.Format("{0} {1}//output{2} hocr", files[i], ex1, i + 1);
                 
                 try
@@ -71,8 +84,34 @@ namespace OCR_to_SQL
                 MessageBox.Show(pattern[i]);
                 MessageBox.Show(body[i]);
                 MessageBox.Show(root[i]);
+                */
 
+                try
+                {
+                    using (var engine = new TesseractEngine(@"tessdata", "eng", EngineMode.Default))
+                    {
+                        using (var img = Pix.LoadFromFile(files[i]))
+                        {
+                            using (var page = engine.Process(img))
+                            {
+                                var text = page.GetText();
+
+                                MessageBox.Show(text);
+                                outputs.Add(text);
+
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format("Error: {0}", ex.Message));
+                }
             }
+
+            string outputsString = string.Join(", ", outputs.ToArray());
+            MessageBox.Show(outputsString);
+
         }
 
         private void button2_Click(object sender, EventArgs e)
