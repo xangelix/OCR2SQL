@@ -17,6 +17,7 @@ namespace OCR_to_SQL
 {
     public partial class Form1 : Form
     {
+        //new branch test
         Timer t = new Timer(1000);
 
         public Form1()
