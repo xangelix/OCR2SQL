@@ -18,7 +18,19 @@ namespace OCR_to_SQL
 {
     public partial class Form1 : Form
     {
-        //new branch test
+        public static string DeleteLines(string stringToRemoveLinesFrom, int numberOfLinesToRemove, bool startFromBottom = false)
+        {
+            string toReturn = "";
+            string[] allLines = stringToRemoveLinesFrom.Split(
+                    separator: Environment.NewLine.ToCharArray(),
+                    options: StringSplitOptions.RemoveEmptyEntries);
+            if (startFromBottom)
+                toReturn = String.Join(Environment.NewLine, allLines.Take(allLines.Length - numberOfLinesToRemove));
+            else
+                toReturn = String.Join(Environment.NewLine, allLines.Skip(numberOfLinesToRemove));
+            return toReturn;
+        }
+
         Timer t = new Timer(1000);
 
         public Form1()
@@ -48,6 +60,7 @@ namespace OCR_to_SQL
             string[] files = Directory.GetFiles(textBox1.Text);
             //textBox1.Text = files[0];
             List<string> outputs = new List<string>();
+            List<string> resolvedoutputs = new List<string>();
 
 
             for (int i = 0; i < files.Length; i++)
@@ -107,10 +120,38 @@ namespace OCR_to_SQL
                 {
                     MessageBox.Show(String.Format("Error: {0}", ex.Message));
                 }
+
+                resolvedoutputs.Add(outputs[i]);
+
+                int indexOfFirstPhrase = outputs[i].IndexOf("32920");
+                if (indexOfFirstPhrase >= 0)
+                {
+                    indexOfFirstPhrase += "32920".Length;
+                    int indexOfSecondPhrase = outputs[i].IndexOf("khfjlkahfgkjeahfjhaekhfkjahjslf", indexOfFirstPhrase);
+                    if (indexOfSecondPhrase >= 0)
+                        resolvedoutputs[i] = outputs[i].Substring(indexOfFirstPhrase, indexOfSecondPhrase - indexOfFirstPhrase);
+                    else
+                        resolvedoutputs[i] = outputs[i].Substring(indexOfFirstPhrase);
+                }
+                string tempOut = DeleteLines(resolvedoutputs[i], 3, false);
+                MessageBox.Show(resolvedoutputs[i]);
+                
+                MessageBox.Show(tempOut);
+
+
+                int index = resolvedoutputs[i].IndexOf(tempOut, StringComparison.Ordinal);
+                string cleanPath = (index < 0)
+                    ? resolvedoutputs[i]
+                    : resolvedoutputs[i].Remove(index, tempOut.Length);
+
+
+                MessageBox.Show(resolvedoutputs[i]);
             }
 
             string outputsString = string.Join(", ", outputs.ToArray());
             MessageBox.Show(outputsString);
+
+            
 
         }
 
