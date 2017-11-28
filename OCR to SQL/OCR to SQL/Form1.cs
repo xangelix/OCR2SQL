@@ -109,7 +109,7 @@ namespace OCR_to_SQL
                             {
                                 var text = page.GetText();
 
-                                MessageBox.Show(text);
+                                //MessageBox.Show(text);
                                 outputs.Add(text);
 
                             }
@@ -118,7 +118,7 @@ namespace OCR_to_SQL
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(String.Format("Error: {0}", ex.Message));
+                    //MessageBox.Show(String.Format("Error: {0}", ex.Message));
                 }
 
                 resolvedoutputs.Add(outputs[i]);
@@ -134,9 +134,9 @@ namespace OCR_to_SQL
                         resolvedoutputs[i] = outputs[i].Substring(indexOfFirstPhrase);
                 }
                 string tempOut = DeleteLines(resolvedoutputs[i], 3, false);
-                MessageBox.Show(resolvedoutputs[i]);
-                
-                MessageBox.Show(tempOut);
+                //MessageBox.Show(resolvedoutputs[i]);
+
+                //MessageBox.Show(tempOut);
 
 
                 int index = resolvedoutputs[i].IndexOf(tempOut, StringComparison.Ordinal);
@@ -144,14 +144,38 @@ namespace OCR_to_SQL
                     ? resolvedoutputs[i]
                     : resolvedoutputs[i].Remove(index, tempOut.Length);
 
-
                 MessageBox.Show(resolvedoutputs[i]);
+                //string[] resolvedOutputsName = resolvedoutputs[i].Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                string[] resolvedOutputsName = resolvedoutputs[i].Split(new Char[] { '\n' });
+                int resolvingIndex = 0;
+                foreach (string s in resolvedOutputsName)
+                {
+                    resolvingIndex++;
+                    if (s.Trim() != "")
+                    {
+                        switch (resolvingIndex)
+                        {
+                            case 1:
+                                MessageBox.Show("Name: " + s);
+                                break;
+                            case 2:
+                                MessageBox.Show("Street Address: " + s);
+                                break;
+                            case 3:
+                                MessageBox.Show("City: " + s);
+                                break;
+                        }
+                        
+                    }
+
+                    
+                }
             }
 
             string outputsString = string.Join(", ", outputs.ToArray());
             MessageBox.Show(outputsString);
 
-            
+
 
         }
 
