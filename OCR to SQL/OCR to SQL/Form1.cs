@@ -51,6 +51,8 @@ namespace OCR_to_SQL
         {
             string ex1 = textBox1.Text;
 
+            var dictionary = new Dictionary<string, Person>();
+
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = textBox2.Text;
             startInfo.CreateNoWindow = false;
@@ -58,47 +60,12 @@ namespace OCR_to_SQL
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             
             string[] files = Directory.GetFiles(textBox1.Text);
-            //textBox1.Text = files[0];
             List<string> outputs = new List<string>();
             List<string> resolvedoutputs = new List<string>();
 
 
             for (int i = 0; i < files.Length; i++)
             {
-                /*
-                startInfo.Arguments = String.Format("{0} {1}//output{2} hocr", files[i], ex1, i + 1);
-                
-                try
-                {
-                    using (Process exeProcess = Process.Start(startInfo))
-                    {
-                        exeProcess.WaitForExit();
-                    }
-                }
-                catch
-                {
-                    MessageBox.Show("Error running Tesseract-OCR");
-                }
-                string[] document = new string[files.Length];
-                string[] pattern = new string[files.Length];
-                string[] body = new string[files.Length];
-                string[] root = new string[files.Length];
-                StreamReader reader = new StreamReader(String.Format("{0}//output{1}.hocr", ex1, i + 1));
-                document[i] = reader.ReadToEnd();
-                pattern[i] = "<body>(.*)</body>";
-
-                Match match = Regex.Match(document[i], pattern[i], RegexOptions.Singleline);
-                body[i] = match.Groups[1].Value;
-                root[i] = string.Format("<root>{0}</root>", body);
-                XmlDocument xm = new XmlDocument();
-                xm.LoadXml(root[i]);
-
-                MessageBox.Show(document[i]);
-                MessageBox.Show(pattern[i]);
-                MessageBox.Show(body[i]);
-                MessageBox.Show(root[i]);
-                */
-
                 try
                 {
                     using (var engine = new TesseractEngine(@"tessdata", "eng", EngineMode.Default))
@@ -109,7 +76,6 @@ namespace OCR_to_SQL
                             {
                                 var text = page.GetText();
 
-                                //MessageBox.Show(text);
                                 outputs.Add(text);
 
                             }
@@ -118,7 +84,7 @@ namespace OCR_to_SQL
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show(String.Format("Error: {0}", ex.Message));
+                    MessageBox.Show(String.Format("Error: {0}", ex.Message));
                 }
 
                 resolvedoutputs.Add(outputs[i]);
@@ -147,29 +113,49 @@ namespace OCR_to_SQL
                 MessageBox.Show(resolvedoutputs[i]);
                 //string[] resolvedOutputsName = resolvedoutputs[i].Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 string[] resolvedOutputsName = resolvedoutputs[i].Split(new Char[] { '\n' });
+
                 int resolvingIndex = 0;
+                resolvedOutputsName = resolvedOutputsName.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+
+                string personName = "name not set";
+                string personStreet = "name not set";
+                string personCity = "name not set";
+                //string personState = "name not set";
+                //string personZip = "name not set";
+
+
                 foreach (string s in resolvedOutputsName)
                 {
-                    resolvingIndex++;
-                    if (s.Trim() != "")
+                    
+                    if (true)
                     {
                         switch (resolvingIndex)
                         {
+                            case 0:
+                                //MessageBox.Show("Name: " + s);
+                                personName = s;
+                                break;
                             case 1:
-                                MessageBox.Show("Name: " + s);
+                                //MessageBox.Show("Street Address: " + s);
+                                personStreet = s;
                                 break;
                             case 2:
-                                MessageBox.Show("Street Address: " + s);
-                                break;
-                            case 3:
-                                MessageBox.Show("City: " + s);
+                                //MessageBox.Show("City: " + s);
+                                personCity = s;
                                 break;
                         }
                         
                     }
+                    resolvingIndex++;
 
-                    
                 }
+
+                dictionary.Add("NewPerson" + i, new Person());
+                dictionary["NewPerson" + i].Name = personName;
+                dictionary["NewPerson" + i].Street = personStreet;
+                dictionary["NewPerson" + i].City = personCity;
+                //dictionary["NewPerson" + i].State = "Tim Jones";
+                //dictionary["NewPerson" + i].Zip = "Tim Jones";
             }
 
             string outputsString = string.Join(", ", outputs.ToArray());
