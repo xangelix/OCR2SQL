@@ -110,7 +110,7 @@ namespace OCR_to_SQL
                     ? resolvedoutputs[i]
                     : resolvedoutputs[i].Remove(index, tempOut.Length);
 
-                MessageBox.Show(resolvedoutputs[i]);
+                //MessageBox.Show(resolvedoutputs[i]);
                 //string[] resolvedOutputsName = resolvedoutputs[i].Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 string[] resolvedOutputsName = resolvedoutputs[i].Split(new Char[] { '\n' });
 
@@ -196,17 +196,26 @@ namespace OCR_to_SQL
                 form2.textBox4.Text = dictionary["NewPerson" + i].State;
                 form2.textBox5.Text = dictionary["NewPerson" + i].Zip.ToString();
 
+                form2.textBox6.Text = textBox3.Text;
+
                 form2.richTextBox1.Text = resolvedoutputs[i];
 
-
+                form2.pictureBox1.Image = Image.FromFile(files[i]); 
 
                 form2.ShowDialog();
+
+                if (i == files.Length - 1)
+                {
+                    //Confirmation
+                    MessageBox.Show("Saved to: " + textBox1.Text + "\\" + form2.textBox6.Text + ".sql");
+                }
+                
             }
 
             //string outputsString = string.Join(", ", outputs.ToArray());
             //MessageBox.Show(outputsString);
 
-
+            Application.Exit();
 
         }
 
