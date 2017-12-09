@@ -44,7 +44,7 @@ namespace OCR_to_SQL
             public string Street { get; set; }
             public string City { get; set; }
             public string State { get; set; }
-            public int Zip { get; set; }
+            public string Zip { get; set; }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -118,10 +118,10 @@ namespace OCR_to_SQL
                 resolvedOutputsName = resolvedOutputsName.Where(x => !string.IsNullOrEmpty(x)).ToArray();
 
                 string personName = "name not set";
-                string personStreet = "name not set";
-                string personCity = "name not set";
-                //string personState = "name not set";
-                //string personZip = "name not set";
+                string personStreet = "street not set";
+                string personCity = "person not set";
+                string personState = "state not set";
+                string personZip = "zip not set";
 
 
                 foreach (string s in resolvedOutputsName)
@@ -150,16 +150,61 @@ namespace OCR_to_SQL
 
                 }
 
+                //personZip = int.Parse(personCity.Substring(Math.Max(0, personCity.Length - 5)));
+
+                
+                //personCity = personCity.Remove(personCity.Length - 3);
+
+                try
+                {
+                    personZip = personCity.Substring(personCity.Length - 5);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(String.Format("Error: {0}", ex.Message));
+                }
+
+
+
+
+                int cityIndex = personCity.IndexOf(",");
+
+                if (cityIndex > 0)
+                {
+                    personState = personCity.Substring(cityIndex + 2, 2);
+                }
+
+                if (cityIndex > 0)
+                {
+                    personCity = personCity.Substring(0, cityIndex);
+                }
+
                 dictionary.Add("NewPerson" + i, new Person());
                 dictionary["NewPerson" + i].Name = personName;
                 dictionary["NewPerson" + i].Street = personStreet;
                 dictionary["NewPerson" + i].City = personCity;
-                //dictionary["NewPerson" + i].State = "Tim Jones";
-                //dictionary["NewPerson" + i].Zip = "Tim Jones";
+                dictionary["NewPerson" + i].State = personState;
+                dictionary["NewPerson" + i].Zip = personZip;
+
+                Form2 form2 = new Form2();
+                
+                form2.Text = files[i];
+
+                form2.textBox1.Text = dictionary["NewPerson" + i].Name;
+                form2.textBox2.Text = dictionary["NewPerson" + i].Street;
+                form2.textBox3.Text = dictionary["NewPerson" + i].City;
+                form2.textBox4.Text = dictionary["NewPerson" + i].State;
+                form2.textBox5.Text = dictionary["NewPerson" + i].Zip.ToString();
+
+                form2.richTextBox1.Text = resolvedoutputs[i];
+
+
+
+                form2.ShowDialog();
             }
 
-            string outputsString = string.Join(", ", outputs.ToArray());
-            MessageBox.Show(outputsString);
+            //string outputsString = string.Join(", ", outputs.ToArray());
+            //MessageBox.Show(outputsString);
 
 
 
