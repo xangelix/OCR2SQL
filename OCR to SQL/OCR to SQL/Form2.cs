@@ -20,7 +20,7 @@ namespace OCR_to_SQL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if ((textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "" && textBox6.Text != "" && textBox7.Text != "") && (radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked || radioButton5.Checked || radioButton6.Checked))
+            if ((textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "" && textBox6.Text != "") && ((radioButton1.Checked || radioButton2.Checked || radioButton3.Checked || radioButton4.Checked || radioButton5.Checked) || (radioButton6.Checked && textBox7.Text != "")))
             {
                 //Database Creation
                 System.Windows.Forms.Form f = System.Windows.Forms.Application.OpenForms["Form1"];
