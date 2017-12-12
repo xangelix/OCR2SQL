@@ -31,8 +31,6 @@ namespace OCR_to_SQL
             return toReturn;
         }
 
-        Timer t = new Timer(1000);
-
         public Form1()
         {
             InitializeComponent();
@@ -52,12 +50,6 @@ namespace OCR_to_SQL
             string ex1 = textBox1.Text;
 
             var dictionary = new Dictionary<string, Person>();
-
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = textBox2.Text;
-            startInfo.CreateNoWindow = false;
-            startInfo.UseShellExecute = false;         
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             
             string[] files = Directory.GetFiles(textBox1.Text);
             List<string> outputs = new List<string>();
@@ -204,6 +196,40 @@ namespace OCR_to_SQL
 
                 form2.ShowDialog();
 
+                string reason = "";
+
+
+                //Determining Reason
+                if (form2.radioButton1.Checked)
+                {
+                    reason = "Not Deliverable as Addressed";
+                }
+                else if (form2.radioButton2.Checked)
+                {
+                    reason = "No Such Number";
+                }
+                else if (form2.radioButton3.Checked)
+                {
+                    reason = "No Mail Receptacle";
+                }
+                else if (form2.radioButton4.Checked)
+                {
+                    reason = "No Such Street";
+                }
+                else if (form2.radioButton5.Checked)
+                {
+                    reason = "Vacant";
+                }
+                else if (form2.radioButton6.Checked)
+                {
+                    reason = form2.textBox7.Text;
+                }
+
+                using (StreamWriter sw = File.AppendText(textBox1.Text + "\\" + form2.textBox6.Text + ".sql"))
+                {
+                    sw.WriteLine(String.Format("INSERT INTO people (name, street, city, state, zip, reason) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}');", form2.textBox1.Text, form2.textBox2.Text, form2.textBox3.Text, form2.textBox4.Text, form2.textBox5.Text, reason));
+                }
+
                 if (i == files.Length - 1)
                 {
                     //Confirmation
@@ -227,41 +253,6 @@ namespace OCR_to_SQL
             {
                 textBox1.Text = fbd.SelectedPath;
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog fbd2 = new OpenFileDialog();
-            if (fbd2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                textBox2.Text = fbd2.FileName;
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            string tesseractPath = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe";
-            if (File.Exists(tesseractPath))
-            {
-                textBox2.Text = tesseractPath;
-            }
-            else
-            {
-                t.Elapsed += new System.Timers.ElapsedEventHandler(t_Elapsed);
-                t.Start();
-            }
-
-        }
-
-        private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            t.Stop();
-            MessageBox.Show("Tesseract-OCR installation could not be found!\nPlease manually enter the path to tesseract.exe!");
         }
     }
 }
