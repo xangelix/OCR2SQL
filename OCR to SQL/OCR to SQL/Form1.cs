@@ -86,7 +86,7 @@ namespace OCR_to_SQL
                     int indexOfFirstPhrase = outputs[i].IndexOf("32920");
                     if (indexOfFirstPhrase >= 0)
                     {
-                        indexOfFirstPhrase += "32920".Length;
+                        indexOfFirstPhrase += textBox2.Text.Length;
                         int indexOfSecondPhrase = outputs[i].IndexOf("khfjlkahfgkjeahfjhaekhfkjahjslf", indexOfFirstPhrase);
                         if (indexOfSecondPhrase >= 0)
                             resolvedoutputs[i] = outputs[i].Substring(indexOfFirstPhrase, indexOfSecondPhrase - indexOfFirstPhrase);

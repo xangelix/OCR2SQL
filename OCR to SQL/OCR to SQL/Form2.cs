@@ -27,7 +27,7 @@ namespace OCR_to_SQL
 
                 if (!File.Exists(((Form1)f).textBox1.Text + "\\" + textBox6.Text + ".sql"))
                 {
-                    string[] databaseName = { "CREATE DATABASE " + textBox6.Text + ";", "", "CREATE TABLE people(name CHAR(100), street CHAR(100), city CHAR(100), state CHAR(100), zip CHAR(100), reason CHAR(100));", "" };
+                    string[] databaseName = { "CREATE DATABASE '" + textBox6.Text + "';", "", "CREATE TABLE people(name CHAR(100), street CHAR(100), city CHAR(100), state CHAR(100), zip CHAR(100), reason CHAR(100));", "" };
 
                     File.WriteAllLines(((Form1)f).textBox1.Text + "\\" + textBox6.Text + ".sql", databaseName);
                 }
