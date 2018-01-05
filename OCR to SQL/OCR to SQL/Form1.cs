@@ -121,15 +121,15 @@ namespace OCR_to_SQL
                             {
                                 case 0:
                                     //MessageBox.Show("Name: " + s);
-                                    personName = s;
+                                    personName = s.Trim();
                                     break;
                                 case 1:
                                     //MessageBox.Show("Street Address: " + s);
-                                    personStreet = s;
+                                    personStreet = s.Trim();
                                     break;
                                 case 2:
                                     //MessageBox.Show("City: " + s);
-                                    personCity = s;
+                                    personCity = s.Trim();
                                     break;
                             }
 
