@@ -123,7 +123,7 @@
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "OCR to SQL";
+            this.Text = "OCR2SQL";
             this.ResumeLayout(false);
             this.PerformLayout();
 

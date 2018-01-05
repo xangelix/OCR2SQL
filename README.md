@@ -15,6 +15,7 @@ WIP
 * Better error messages and prevention of errors
 * Better detection of address patterns
 * Loading screen instead of not responding
+* OCR scan status in title bar
 
 ## Prerequisites
 
