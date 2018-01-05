@@ -94,18 +94,12 @@ namespace OCR_to_SQL
                             resolvedoutputs[i] = outputs[i].Substring(indexOfFirstPhrase);
                     }
                     string tempOut = DeleteLines(resolvedoutputs[i], 3, false);
-                    //MessageBox.Show(resolvedoutputs[i]);
-
-                    //MessageBox.Show(tempOut);
-
 
                     int index = resolvedoutputs[i].IndexOf(tempOut, StringComparison.Ordinal);
                     string cleanPath = (index < 0)
                         ? resolvedoutputs[i]
                         : resolvedoutputs[i].Remove(index, tempOut.Length);
 
-                    //MessageBox.Show(resolvedoutputs[i]);
-                    //string[] resolvedOutputsName = resolvedoutputs[i].Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     string[] resolvedOutputsName = resolvedoutputs[i].Split(new Char[] { '\n' });
 
                     int resolvingIndex = 0;
@@ -144,11 +138,6 @@ namespace OCR_to_SQL
 
                     }
 
-                    //personZip = int.Parse(personCity.Substring(Math.Max(0, personCity.Length - 5)));
-
-
-                    //personCity = personCity.Remove(personCity.Length - 3);
-
                     try
                     {
                         personZip = personCity.Substring(personCity.Length - 5);
@@ -157,9 +146,6 @@ namespace OCR_to_SQL
                     {
                         MessageBox.Show(String.Format("Error: {0}", ex.Message));
                     }
-
-
-
 
                     int cityIndex = personCity.IndexOf(",");
 
@@ -194,37 +180,73 @@ namespace OCR_to_SQL
 
                     form2.richTextBox1.Text = resolvedoutputs[i];
 
+                    if (form2.richTextBox1.Text.Contains("UFF"))
+                    {
+                        form2.radioButton8.Checked = true;
+                    }
+                    else if (form2.richTextBox1.Text.Contains("DEL"))
+                    {
+                        form2.radioButton1.Checked = true;
+                    }
+                    else if (form2.richTextBox1.Text.Contains("EPT"))
+                    {
+                        form2.radioButton5.Checked = true;
+                    }
+                    else if (form2.richTextBox1.Text.Contains("STR"))
+                    {
+                        form2.radioButton4.Checked = true;
+                    }
+                    else if (form2.richTextBox1.Text.Contains("NUM"))
+                    {
+                        form2.radioButton2.Checked = true;
+                    }
+                    else if (form2.richTextBox1.Text.Contains("VAC"))
+                    {
+                        form2.radioButton3.Checked = true;
+                    }
+                    else if (form2.richTextBox1.Text.Contains("KNO"))
+                    {
+                        form2.radioButton7.Checked = true;
+                    }
+
                     form2.pictureBox1.Image = Image.FromFile(files[i]);
 
                     form2.ShowDialog();
 
                     string reason = "";
 
-
                     //Determining Reason
                     if (form2.radioButton1.Checked)
                     {
-                        reason = "Not Deliverable as Addressed";
+                        reason = form2.radioButton1.Text;
                     }
                     else if (form2.radioButton2.Checked)
                     {
-                        reason = "No Such Number";
+                        reason = form2.radioButton2.Text;
                     }
                     else if (form2.radioButton3.Checked)
                     {
-                        reason = "No Mail Receptacle";
+                        reason = form2.radioButton3.Text;
                     }
                     else if (form2.radioButton4.Checked)
                     {
-                        reason = "No Such Street";
+                        reason = form2.radioButton4.Text;
                     }
                     else if (form2.radioButton5.Checked)
                     {
-                        reason = "Vacant";
+                        reason = form2.radioButton5.Text;
                     }
                     else if (form2.radioButton6.Checked)
                     {
                         reason = form2.textBox7.Text;
+                    }
+                    else if (form2.radioButton7.Checked)
+                    {
+                        reason = form2.radioButton7.Text;
+                    }
+                    else if (form2.radioButton8.Checked)
+                    {
+                        reason = form2.radioButton8.Text;
                     }
 
                     using (StreamWriter sw = File.AppendText(textBox1.Text + "\\" + form2.textBox6.Text + ".sql"))
@@ -239,9 +261,6 @@ namespace OCR_to_SQL
                     }
 
                 }
-
-                //string outputsString = string.Join(", ", outputs.ToArray());
-                //MessageBox.Show(outputsString);
 
                 Application.Exit();
             }
