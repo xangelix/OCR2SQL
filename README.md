@@ -22,7 +22,8 @@ WIP
 
 ## Installing and Deployment
 
-[Link to chrome extension page](https://chrome.google.com/webstore/detail/binance-valuations/gigeklhepgkfmglclnonjblcchoalpda)
+[Download setup from the releases page](https://github.com/Matrix-Guy/OCR2SQL/releases)
+WIP: Step by step guide to using
 
 or
 
@@ -32,7 +33,7 @@ or
 4. Run "OCR to SQL.exe".
 5. Done!
 
-Most editing you will want to do if any will take place in [Form1.cs](/OCR to SQL/Form1.cs) and [Form2.cs](/OCR to SQL/Form2.cs).
+Most editing you will want to do if any will take place in [Form1.cs](https://github.com/Matrix-Guy/OCR2SQL/blob/master/OCR%20to%20SQL/OCR%20to%20SQL/Form1.cs) and [Form2.cs](https://github.com/Matrix-Guy/OCR2SQL/blob/master/OCR%20to%20SQL/OCR%20to%20SQL/Form2.cs).
 
 Happy forking!
 
