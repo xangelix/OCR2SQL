@@ -180,7 +180,7 @@ namespace OCR_to_SQL
 
                     form2.richTextBox1.Text = resolvedoutputs[i];
 
-                    if (form2.richTextBox1.Text.Contains("UFF"))
+                    if (form2.richTextBox1.Text.Contains("UFF") || form2.richTextBox1.Text.Contains("INS"))
                     {
                         form2.radioButton8.Checked = true;
                     }
@@ -188,7 +188,7 @@ namespace OCR_to_SQL
                     {
                         form2.radioButton1.Checked = true;
                     }
-                    else if (form2.richTextBox1.Text.Contains("EPT"))
+                    else if (form2.richTextBox1.Text.Contains("EPT") || form2.richTextBox1.Text.Contains("AI"))
                     {
                         form2.radioButton5.Checked = true;
                     }
@@ -204,7 +204,7 @@ namespace OCR_to_SQL
                     {
                         form2.radioButton3.Checked = true;
                     }
-                    else if (form2.richTextBox1.Text.Contains("KNO"))
+                    else if (form2.richTextBox1.Text.Contains("KNO") || form2.richTextBox1.Text.Contains("TT"))
                     {
                         form2.radioButton7.Checked = true;
                     }

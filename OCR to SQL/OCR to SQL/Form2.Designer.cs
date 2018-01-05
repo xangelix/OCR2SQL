@@ -70,7 +70,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(670, 944);
+            this.button1.Location = new System.Drawing.Point(158, 434);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -151,16 +151,16 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(9, 464);
+            this.richTextBox1.Location = new System.Drawing.Point(9, 463);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(230, 503);
+            this.richTextBox1.Size = new System.Drawing.Size(230, 504);
             this.richTextBox1.TabIndex = 11;
             this.richTextBox1.Text = "";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 448);
+            this.label6.Location = new System.Drawing.Point(12, 447);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 13);
             this.label6.TabIndex = 12;
@@ -170,7 +170,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(245, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1210, 926);
+            this.pictureBox1.Size = new System.Drawing.Size(1293, 955);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
@@ -288,10 +288,10 @@
             this.radioButton7.AutoSize = true;
             this.radioButton7.Location = new System.Drawing.Point(6, 157);
             this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(161, 17);
+            this.radioButton7.Size = new System.Drawing.Size(168, 17);
             this.radioButton7.TabIndex = 24;
             this.radioButton7.TabStop = true;
-            this.radioButton7.Text = "ATEMPTED - NOT KNOWN";
+            this.radioButton7.Text = "ATTEMPTED - NOT KNOWN";
             this.radioButton7.UseVisualStyleBackColor = true;
             // 
             // radioButton8
@@ -310,7 +310,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(1467, 979);
+            this.ClientSize = new System.Drawing.Size(1550, 979);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label7);
