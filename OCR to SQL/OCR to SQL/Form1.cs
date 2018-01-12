@@ -161,7 +161,7 @@ namespace OCR_to_SQL
 
                     Form2 form2 = new Form2();
 
-                    form2.Text = files[i];
+                    form2.Text = String.Format("{0} / {1} - {2}", i + 1, files.Length, files[i]);
 
                     form2.textBox1.Text = dictionary["NewPerson" + i].Name;
                     form2.textBox2.Text = dictionary["NewPerson" + i].Street;
@@ -202,7 +202,18 @@ namespace OCR_to_SQL
                         form2.radioButton7.Checked = true;
                     }
 
+                    if (form2.richTextBox1.Text.Contains("Attn"))
+                    {
+                        form2.textBox1.Text = "Attn: Property Owner";
+                    }
+                    else if (form2.richTextBox1.Text.Contains("Asset") || form2.richTextBox1.Text.Contains("Mana") || form2.richTextBox1.Text.Contains("Comm"))
+                    {
+                        form2.textBox1.Text = "Asset Manager for Massachusetts Commercial & Industrial Property";
+                    }
+
                     form2.pictureBox1.Image = Image.FromFile(files[i]);
+
+
 
                     form2.ShowDialog();
 
