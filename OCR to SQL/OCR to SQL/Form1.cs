@@ -142,9 +142,12 @@ namespace OCR_to_SQL
 
                     int cityIndex = personCity.IndexOf(",");
 
-                    if (cityIndex > 0)
+                    if (personCity.Length > cityIndex + 2)
                     {
-                        personState = personCity.Substring(cityIndex + 2, 2);
+                        if (cityIndex > 0)
+                        {
+                            personState = personCity.Substring(cityIndex + 2, 2);
+                        }
                     }
 
                     if (cityIndex > 0)
