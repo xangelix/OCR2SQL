@@ -4,18 +4,31 @@ Scans through returned mail and creates a database including the addresses and r
 
 [Download setup from the releases page](https://github.com/Matrix-Guy/OCR2SQL/releases)
 
+This likely has limited compatibility with other purposes than what I have used it for so feel free to submit an issue report and increased compatibility may be added.
+
 ## For Feature Suggestions and Bug Reports
 
 Please use the [issues tracker on this github repository](https://github.com/Matrix-Guy/OCR2SQL/issues)!
 
 ## Current Features
-WIP
+* User gives scanned documents, the return address zip code, and a name of the database to be written.
+* Scanned documents are converted into text one by one, allowing the user to see each scan and the estimated properties collected along with the raw detected text for easy fixing of matching errors.
+* These are then written to a .sql file (SQL Script) which has all the matching data in it.
+
+# Current Detected Properties 
+1. Name
+2. Street
+3. City
+4. State
+5. ZIP Code
+6. Reason for return
 
 ## Upcoming Features
-* Better error messages and prevention of errors
+* Better variable names
+* Many more code comments
 * Better detection of address patterns
 * Loading screen instead of not responding
-* OCR scan status in title bar
+* OCR scan status in task bar
 
 ## Prerequisites
 
