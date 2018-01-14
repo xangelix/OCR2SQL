@@ -42,6 +42,10 @@ namespace OCR_to_SQL
         {
             if (textBox1.Text != "" && textBox3.Text != "")
             {
+
+                var dialogTypeName = "System.Windows.Forms.PropertyGridInternal.GridErrorDlg";
+                var dialogType = typeof(Form).Assembly.GetType(dialogTypeName);
+
                 string ex1 = textBox1.Text;
 
                 var dictionary = new Dictionary<string, Person>();
@@ -128,7 +132,6 @@ namespace OCR_to_SQL
 
                         }
                         resolvingIndex++;
-
                     }
 
                     try
@@ -137,7 +140,13 @@ namespace OCR_to_SQL
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(String.Format("Error: {0}", ex.Message));
+                        var dialog = (Form)Activator.CreateInstance(dialogType, new PropertyGrid());
+                        dialog.Text = "Error reading document!";
+                        dialogType.GetProperty("Details").SetValue(dialog, ex.ToString(), null);
+                        dialogType.GetProperty("Message").SetValue(dialog, "Significant OCR errors detected, manual analysis very likely needed!\nError: Could not detect ZIP code!", null);
+
+                        // Display error
+                        var result = dialog.ShowDialog();
                     }
 
                     int cityIndex = personCity.IndexOf(",");
