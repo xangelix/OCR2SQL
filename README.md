@@ -15,7 +15,7 @@ Please use the [issues tracker on this github repository](https://github.com/Mat
 * Scanned documents are converted into text one by one, allowing the user to see each scan and the estimated properties collected along with the raw detected text for easy fixing of matching errors.
 * These are then written to a .sql file (SQL Script) which has all the matching data in it.
 
-# Current Detected Properties 
+### Current Detected Properties 
 1. Name
 2. Street
 3. City
@@ -38,6 +38,7 @@ Please use the [issues tracker on this github repository](https://github.com/Mat
 ## Installing and Deployment
 
 [Download setup from the releases page](https://github.com/Matrix-Guy/OCR2SQL/releases)
+
 WIP: Step by step guide to using
 
 or
