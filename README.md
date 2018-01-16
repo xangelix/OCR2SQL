@@ -33,7 +33,7 @@ Please use the [issues tracker on this github repository](https://github.com/Mat
 ## Prerequisites
 
 * Windows 7 SP1, Windows 8.1, or Windows 10 Anniversary Update OS
-* .NET Framework 4.7.1
+* [.NET Framework 4.7.1](https://www.microsoft.com/net/download/window)
 
 ## Installing and Deployment
 
